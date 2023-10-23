@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,13 +21,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=5-iju7y&o50!7pemh4x=7!f@()-j(d($=gext_03i%p4@bbjz'
+#SECRET_KEY = 'django-insecure-=5-iju7y&o50!7pemh4x=7!f@()-j(d($=gext_03i%p4@bbjz'
+SECRET_KEY = '64z^5%1zzzy4rs=4o&1zgnz%q#ai@&1_@zj_(t%#mj))vy&-uo'
+#SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+IS_SQLITE_APP = True
+IS_HEROKU_DB = False  # if False then postgres-localdb
 
-ALLOWED_HOSTS = []
-
+#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'chapters-dc88634a47a1.herokuapp.com']
 
 # Application definition
 
@@ -77,13 +80,36 @@ WSGI_APPLICATION = 'chaptersProject.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if IS_SQLITE_APP:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    if IS_HEROKU_DB:
+        DATABASES = {
+            'default': {
+              'ENGINE': 'django.db.backends.postgresql_psycopg2',
+              'NAME': 'd7lo27m0omlplf',
+              'USER': 'ujmivcjgvatuwa',
+              'PASSWORD': '56fe622a8b3bdc316dd24171f731396252c9af8d4c5cc3cab6a8974c1b49f341',
+              'HOST': 'ec2-34-242-199-141.eu-west-1.compute.amazonaws.com',
+              'PORT': '5432'
+            }
+        }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'chaptersdb',
+                'USER': 'postgres',
+                'PASSWORD': 'pages636',
+                'HOST': 'localhost',
+                'PORT': '5432'
+            }
+        }
 
 
 # Password validation
@@ -126,7 +152,15 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+LOGIN_REDIRECT_URL = '/chapters/'
+LOGOUT_REDIRECT_URL = '/'
+
+SESSION_COOKIE_AGE = 28800  # 8 hours in seconds
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import django_heroku
+django_heroku.settings(locals())   #heroku
