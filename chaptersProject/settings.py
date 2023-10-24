@@ -30,7 +30,7 @@ if os.path.isfile(dotenv_file):
 SECRET_KEY = os.environ['SECRET_KEY']   # instead of my secret key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 IS_SQLITE_APP = False
 IS_HEROKU_DB = True  # if False then postgres-localdb: chaptersdb@localhost
 
