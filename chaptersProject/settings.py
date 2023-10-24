@@ -27,8 +27,8 @@ SECRET_KEY = '64z^5%1zzzy4rs=4o&1zgnz%q#ai@&1_@zj_(t%#mj))vy&-uo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-IS_SQLITE_APP = True
-IS_HEROKU_DB = False  # if False then postgres-localdb
+IS_SQLITE_APP = False
+IS_HEROKU_DB = False  # if False then postgres-localdb: chaptersdb@localhost
 
 #ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['127.0.0.1', 'chapters-dc88634a47a1.herokuapp.com']

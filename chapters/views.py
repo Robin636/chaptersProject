@@ -226,7 +226,8 @@ def callPairs(request, pk, ct):
     # ct calltype (all=0, called=1, fail=2) set via button
     # lr: left, right and rs: random, serial set via chap_settings per chap
 
-    pair_list = chap.pairs.all() # ct=0,1,2 alle abfragen
+    #pair_list = chap.pairs.all() # ct=0,1,2 alle abfragen
+    pair_list = chap.pairs.filter(status=0)  # eigentlich immer nur den Rest abfragen
 
     if ct == 1:  # Rest abfragen
       pair_list = chap.pairs.filter(status=0)
@@ -243,11 +244,11 @@ def callPairs(request, pk, ct):
     if chap.rs == "r":
       # erzeuge Zufallzahl zwischen 1 und Anzahl pairs
       if pair_list.count() == 1:
-        ir = 1
+        ir = 0
       else:
-        ir = random.randint(1, pair_list.count())
+        ir = random.randint(0, pair_list.count()-1)
 
-      objPair = pair_list[ir - 1]
+      objPair = pair_list[ir]
       id = objPair.id
     else:
       # serial call
@@ -256,11 +257,12 @@ def callPairs(request, pk, ct):
       else:
         num = 0
 
-      if pair_list.count() - num <= 0:
+      if pair_list.count() - 1 - num <= 0:
         return render(request, 'chapters/chap_detail.html', {'chap': chap})
 
       objPair = pair_list[num]
       id = objPair.id
+    # objPair damit festgelegt
 
     if chap.lr == "L":
       pair_text = objPair.textL
