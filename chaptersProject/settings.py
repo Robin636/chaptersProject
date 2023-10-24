@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
-
+import dotenv
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,14 +21,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-=5-iju7y&o50!7pemh4x=7!f@()-j(d($=gext_03i%p4@bbjz'
-SECRET_KEY = '64z^5%1zzzy4rs=4o&1zgnz%q#ai@&1_@zj_(t%#mj))vy&-uo'
-#SECRET_KEY = os.environ['SECRET_KEY']
+# Add .env variables anywhere before SECRET_KEY
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+  dotenv.load_dotenv(dotenv_file)
+SECRET_KEY = os.environ['SECRET_KEY']   # instead of my secret key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 IS_SQLITE_APP = False
-IS_HEROKU_DB = False  # if False then postgres-localdb: chaptersdb@localhost
+IS_HEROKU_DB = True  # if False then postgres-localdb: chaptersdb@localhost
 
 #ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['127.0.0.1', 'chapters-dc88634a47a1.herokuapp.com']

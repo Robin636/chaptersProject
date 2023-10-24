@@ -257,8 +257,11 @@ def callPairs(request, pk, ct):
       else:
         num = 0
 
-      if pair_list.count() - 1 - num <= 0:
-        return render(request, 'chapters/chap_detail.html', {'chap': chap})
+      if pair_list.count() - num <= 0:
+        chap.toCallNum0 = 0
+        chap.save()
+        num = 0
+        #return render(request, 'chapters/chap_detail.html', {'chap': chap})
 
       objPair = pair_list[num]
       id = objPair.id
