@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 import dotenv
+import django_heroku
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,7 +30,7 @@ if os.path.isfile(dotenv_file):
 SECRET_KEY = os.environ['SECRET_KEY']   # instead of my secret key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 IS_SQLITE_APP = False
 IS_HEROKU_DB = True  # if False then postgres-localdb: chaptersdb@localhost
 
@@ -164,5 +166,5 @@ SESSION_COOKIE_AGE = 28800  # 8 hours in seconds
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-import django_heroku
+
 django_heroku.settings(locals())   #heroku
