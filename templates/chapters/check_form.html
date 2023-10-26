@@ -59,9 +59,11 @@
 
   <table style="margin-top: 30px" width="100%">
   <tr>
-    <td width="50%"><a class="btn btn-secondary" tabindex="1" href="{% url 'chapters:chap_detail' pk=objChap.pk %}">Cancel</a></td>
-    <td width="25%"><a class="btn btn-success" tabindex="2" href="{% url 'chapters:call_OK' pk=objChap.pk id=objPair.id ct=ct lr=lr %}"><span class="fas fa-thumbs-up"></span></a></td>
-    <td width="25%"><a class="btn btn-danger" tabindex="3" href="{% url 'chapters:call_fail' pk=objChap.pk id=objPair.id ct=ct lr=lr %}"><span class="fas fa-thumbs-down"></span></a></td>
+    <td width="50%"><a href="{% url 'chapters:chap_detail' pk=objChap.pk %}" class="btn btn-secondary" tabindex="3" >Cancel</a></td>
+    <td width="25%"><a href="{% url 'chapters:call_OK' pk=objChap.pk id=objPair.id ct=ct lr=lr %}" class="btn btn-success" tabindex="2" ><span class="fas fa-thumbs-up"></span></a></td>
+{#    <td width="25%"><a class="btn btn-danger active" tabindex="4" href="{% url 'chapters:call_fail' pk=objChap.pk id=objPair.id ct=ct lr=lr %}"><span class="fas fa-thumbs-down"></span></a></td>#}
+{#    <td width="25%"><a href="{% url 'chapters:call_fail' pk=objChap.pk id=objPair.id ct=ct lr=lr %}" class="btn btn-danger" tabindex="1"> <button type="button" autofocus><span class="fas fa-thumbs-down"></span> </button> </a></td>#}
+    <td width="25%"><a href="{% url 'chapters:call_fail' pk=objChap.pk id=objPair.id ct=ct lr=lr %}"><button class="btn btn-danger" type="button" tabindex="1" autofocus><span class="fas fa-thumbs-down"></span> </button> </a></td>
   </tr>
 </table>
 
